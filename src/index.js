@@ -93,18 +93,6 @@ const Menu = () => {
 };
 
 const Pizza = ({ pizzaObj }) => {
-  // if (pizzaObj.soldOut)
-  //   return (
-  //     <li className="pizza sold-out">
-  //       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>
-  //       <div>
-  //         <h3>{pizzaObj.name}</h3>
-  //         <p>{pizzaObj.ingredients}</p>
-  //         <span>SOLD OUT</span>
-  //       </div>
-  //     </li>
-  //   );
-
   return (
     <li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name}></img>

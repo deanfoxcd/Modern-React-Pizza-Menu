@@ -66,51 +66,61 @@ const Header = () => {
 };
 
 const Menu = () => {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
+
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photo="pizzas/spinaci.jpg"
-        price={10}
-      />
-      <Pizza
-        name="Pizza Funghi"
-        ingredients="Tomato, mozarella, mushrooms, and onion"
-        photo="pizzas/funghi.jpg"
-        price={12}
-      />
+
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later</p>
+      )}
     </main>
   );
 };
 
 const Pizza = (props) => {
   return (
-    <div className="pizza">
-      <img src={props.photo} alt={props.name}></img>
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}></img>
       <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price}</span>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 };
 
 const Footer = () => {
   const hour = new Date().getHours();
 
-  const openHours = [12, 22];
-  let message = '';
-
-  if (hour >= openHours[0] && hour <= openHours[1])
-    message = "We're currently open";
-  else message = `We're currently closed. We will reopen at ${openHours[0]}`;
+  const [openHour, closeHour] = [12, 19];
+  const isOpen = hour >= openHour && hour < closeHour;
 
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()} {message}
+      {isOpen ? (
+        <div className="order">
+          <p>
+            We're currently open until {closeHour}:00. Come visit us or order
+            online below
+          </p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>
+          We are closed. We're happy to welcome you between {openHour}:00 and{' '}
+          {closeHour}:00
+        </p>
+      )}
     </footer>
   );
 };
